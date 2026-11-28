@@ -186,6 +186,25 @@ Tema visual: **paus pembawa tumpukan container** (terinspirasi tema container/Do
 
 Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
 
+### Logo, Wallpaper, dan Background Login
+
+Ketiga gambar memakai satu tema: paus pembawa tumpukan container di laut biru, dengan palet biru, cyan, tosca, dan coral.
+
+| Logo boot splash | Wallpaper desktop | Background layar login |
+|:---:|:---:|:---:|
+| <img src="tahap%201/assets/logo-distro.png" width="150"> | <img src="tahap%201/assets/wallpaper-distro.jpg" width="250"> | <img src="tahap%201/assets/login-bg.jpg" width="250"> |
+| `logo-distro.png` | `wallpaper-distro.jpg` | `login-bg.jpg` |
+
+| Gambar | Ukuran | Format | Dipakai di | Keterangan |
+|---|---|---|---|---|
+| Logo | 256×256 px | PNG, latar transparan | Layar boot (Plymouth `distro-splash`) | Paus dan container berwarna, dengan tulisan "Host Container Mini" dan "CONTAINER • NAMESPACE • CGROUP" |
+| Wallpaper | 1920×1080 px | JPG baseline | Desktop XFCE | Paus berwarna penuh di laut dalam dengan gelembung dan ombak; sisi kiri dikosongkan agar ikon desktop terbaca |
+| Background login | 1920×1080 px | JPG baseline | Layar login LightDM | Versi gelap dengan paus bergaya garis tipis bercahaya di kanan bawah, supaya kotak sandi di tengah tidak tertutup |
+
+Hasil wallpaper pada sistem terinstal dapat dilihat di [Gambar 22](tahap%201/screenshots/22.png).
+
+Cara pemasangan ada di bagian [Cara Build](#-cara-build-dengan-cubic), pada sub-bagian "Mengganti tampilan pada proyek yang sudah ada".
+
 ---
 
 ## 🔧 Cara Build dengan Cubic
