@@ -17,7 +17,7 @@
 1. [Identitas Kelompok](#-identitas-kelompok)
 2. [Ringkasan Distro](#-ringkasan-distro)
 3. [Progres Pengembangan](#-progres-pengembangan)
-4. [Paket yang Dipasang](#-paket-yang-dipasang-10-paket)
+4. [Paket yang Dipasang dan Dihapus](#-paket-yang-dipasang-10-paket)
 5. [Fitur B3: Info Namespace dan Cgroup](#-fitur-b3-info-namespace-dan-cgroup)
 6. [Kustomisasi Tampilan](#-kustomisasi-tampilan)
 7. [Cara Build (Cubic)](#-cara-build-dengan-cubic)
@@ -102,7 +102,35 @@ Perintah pemasangan:
 apt install -y runc iproute2 cgroup-tools containerd iptables bridge-utils busybox curl htop vim
 ```
 
-Daftar lengkap (termasuk paket dasar sistem dan paket yang dihapus): [`tahap1/daftar-paket.txt`](tahap1/daftar-paket.txt).
+### Paket yang Dihapus
+
+GNOME dan aplikasi berat dihapus agar sistem lebih ringan dan tidak bentrok dengan XFCE + LightDM.
+
+| Paket | Jenis | Alasan dihapus |
+|---|---|---|
+| `ubuntu-desktop` | Metapaket desktop GNOME | Diganti XFCE |
+| `gnome-shell` | Shell desktop GNOME | Diganti XFCE |
+| `gdm3` | Display manager GNOME | Diganti LightDM |
+| `libreoffice*` | Paket office | Berat dan tidak relevan dengan tema container |
+| `rhythmbox*` | Pemutar musik | Tidak relevan dengan tema |
+| `thunderbird*` | Klien email | Tidak relevan dengan tema |
+| `aisleriot` | Permainan kartu | Tidak relevan dengan tema |
+| `gnome-mahjongg` | Permainan | Tidak relevan dengan tema |
+| `gnome-mines` | Permainan | Tidak relevan dengan tema |
+| `gnome-sudoku` | Permainan | Tidak relevan dengan tema |
+
+Perintah penghapusan:
+
+```bash
+apt purge -y ubuntu-desktop gnome-shell gdm3 \
+  libreoffice* rhythmbox* thunderbird* \
+  aisleriot gnome-mahjongg gnome-mines gnome-sudoku
+apt autoremove -y
+```
+
+Setelah itu `ubiquity`, `ubiquity-frontend-gtk`, dan `casper` dipasang ulang agar installer dan mode Live tetap utuh.
+
+Daftar lengkap (termasuk paket dasar sistem): [`tahap1/daftar-paket.txt`](tahap1/daftar-paket.txt).
 
 ---
 
@@ -317,4 +345,3 @@ Proyek_Sisitem_Operasi/
 ## 📜 Lisensi
 
 Distro ini adalah turunan Ubuntu dan mengikuti lisensi masing-masing paket yang disertakan. Proyek dibuat untuk keperluan pendidikan.
-
