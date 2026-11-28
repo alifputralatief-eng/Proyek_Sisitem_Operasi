@@ -1,0 +1,40 @@
+DAFTAR PAKET - HOST CONTAINER MINI (TAHAP 1)
+============================================
+
+A. 10 PAKET UTAMA SESUAI TEMA (distro pengembang container)
+-----------------------------------------------------------
+No  Paket         Alasan pemilihan
+1   runc          Runtime container standar OCI; inti untuk menjalankan container.
+2   iproute2      Perintah "ip" untuk network namespace, veth, dan routing container.
+3   cgroup-tools  Membuat dan melihat cgroup (cgcreate, cgget, dll.) untuk membatasi sumber daya.
+4   containerd    Manajer container yang memakai runc; pelengkap runtime.
+5   iptables      Aturan NAT dan firewall untuk jaringan container.
+6   bridge-utils  Membuat bridge (brctl) untuk menghubungkan antarcontainer.
+7   busybox       Toolbox mini; dipakai sebagai rootfs kecil untuk menguji container.
+8   curl          Mengunduh rootfs/image dan menguji koneksi dari dalam container.
+9   htop          Memantau proses dan penggunaan CPU/RAM (membantu mengamati cgroup).
+10  vim           Penyunting teks untuk mengubah berkas konfigurasi (config.json runc, dll.).
+
+Perintah pemasangan:
+  apt install -y runc iproute2 cgroup-tools containerd iptables \
+                 bridge-utils busybox curl htop vim
+
+B. PAKET DASAR SISTEM (dipasang saat build di Cubic)
+----------------------------------------------------
+xfce4, xfce4-goodies   Desktop environment ringan XFCE
+lightdm                Display manager
+lightdm-gtk-greeter    Layar login LightDM
+xfce4-terminal         Emulator terminal XFCE
+network-manager-gnome  Pengelola jaringan (applet)
+plymouth               Boot splash screen
+plymouth-themes        Tema bawaan Plymouth
+linux-image-generic    Kernel Linux (diperlukan agar initrd memuat tema Plymouth)
+linux-headers-generic  Header kernel
+ubiquity               Installer ke disk
+ubiquity-frontend-gtk  Antarmuka installer
+casper                 Live-boot (mode Try Ubuntu)
+
+C. PAKET YANG DIHAPUS
+---------------------
+ubuntu-desktop, gnome-shell, gdm3, libreoffice*, rhythmbox*, thunderbird*,
+aisleriot, gnome-mahjongg, gnome-mines, gnome-sudoku
