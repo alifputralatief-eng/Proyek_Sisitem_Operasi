@@ -235,19 +235,38 @@ Windows (PowerShell): `Get-FileHash host-container-mini.iso -Algorithm MD5`
 ## 📂 Struktur Repositori
 
 ```
-Proyek_Sisitem_Operasi/
-├── README.md
+Proyek_5/
 └── tahap1/
     ├── assets/
     │   ├── logo-distro.png
     │   └── wallpaper-distro.jpg
-    └── screenshots/
-        ├── 01-boot-splash.png
-        ├── 02-desktop.png
-        ├── 03-first-login.png
-        ├── 04-paket.png
-        ├── 05-container-info.png
-        └── 06-os-release.png
+    │
+    ├── konfigurasi/
+    │   └── konfigurasi-sistem.txt
+    │
+    ├── screenshots/
+    │   ├── 1.png
+    │   ├── 2.png
+    │   ├── 3.png
+    │   ├── 4.png
+    │   ├── 5.png
+    │   ├── 6.png
+    │   ├── 7.png
+    │   ├── 8.png
+    │   ├── 9.png
+    │   ├── 10.png
+    │   ├── 11.png
+    │   ├── 12.png
+    │   ├── 13.png
+    │   ├── 14.png
+    │   ├── 15.png
+    │   ├── 16.png
+    │   └── 17.png
+    │
+    ├── skrip/
+    │   └── instalasi.sh
+    │
+    └── daftar-paket.txt
 ```
 
 ---
