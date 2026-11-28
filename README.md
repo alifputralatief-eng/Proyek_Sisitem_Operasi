@@ -259,8 +259,6 @@ Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`
   </tr>
   <tr>
     <td align="center" valign="top"><a href="tahap%201/screenshots/29.png"><img src="tahap%201/screenshots/29.png" width="250"><br><b>Gambar 29</b></a><br>First-login otomatis (mode Live)</td>
-    <td></td>
-    <td></td>
   </tr>
 </table>
 
