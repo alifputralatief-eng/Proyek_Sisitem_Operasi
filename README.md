@@ -233,7 +233,7 @@ Pengujian dilakukan di VM baru (RAM 2 GB, disk virtual 25 GB), pertama dalam mod
 | 6 | `container-info 1` (dengan dan tanpa `sudo`) | ✅ | [Gambar 19](tahap%201/screenshots/19.png) |
 | 7 | `cat /etc/os-release` menampilkan `NAME="Host Container Mini"` | ✅ | [Gambar 20](tahap%201/screenshots/20.png) |
 | 8 | Instalasi ke disk berhasil, login sebagai `uji` | ✅ | [Gambar 16](tahap%201/screenshots/16.png), [Gambar 17](tahap%201/screenshots/17.png), [Gambar 21](tahap%201/screenshots/21.png) |
-| 9 | Layar login LightDM dengan wallpaper kustom | ✅ | [Gambar 22_1](tahap%201/screenshots/22_1.png), [Gambar 22](tahap%201/screenshots/22.png) |
+| 9 | Layar login LightDM dengan wallpaper kustom | ✅ | [Gambar 22 (1)](tahap%201/screenshots/22%20%281%29.png), [Gambar 22](tahap%201/screenshots/22.png) |
 
 Catatan hasil:
 - Baris 5: runc versi 1.3.4 dan antarmuka jaringan `enp0s3` mendapat alamat `10.0.2.15`.
@@ -277,7 +277,7 @@ Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`
   </tr>
   <tr>
     <td align="center" valign="top"><a href="tahap%201/screenshots/22.png"><img src="tahap%201/screenshots/22.png" width="250"><br><b>Gambar 22</b></a><br>Menu Log Out</td>
-    <td align="center" valign="top"><a href="tahap%201/screenshots/22 (1).png"><img src="tahap%201/screenshots/22 (1).png" width="250"><br><b>Gambar 22_1</b></a><br>Layar login LightDM, wallpaper kustom</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/22%20%281%29.png"><img src="tahap%201/screenshots/22%20%281%29.png" width="250"><br><b>Gambar 22 (1)</b></a><br>Layar login LightDM, wallpaper kustom</td>
     <td align="center" valign="top"><a href="tahap%201/screenshots/15.png"><img src="tahap%201/screenshots/15.png" width="250"><br><b>Gambar 15</b></a><br>Boot splash Plymouth (logo)</td>
   </tr>
 </table>
@@ -369,7 +369,7 @@ Proyek_Sisitem_Operasi/
 |---|---|
 | `tahap 1/assets/` | Logo boot splash dan wallpaper |
 | `tahap 1/konfigurasi/konfigurasi-sistem.txt` | Ringkasan konfigurasi sistem |
-| `tahap 1/screenshots/` | Dokumentasi proses build dan pengujian (30 gambar: `1.png` sampai `29.png` dan `22_1.png`) |
+| `tahap 1/screenshots/` | Dokumentasi proses build dan pengujian (30 gambar: `1.png` sampai `29.png` dan `22 (1).png`) |
 | `tahap 1/skrip/instalasi.sh` | Seluruh perintah build di chroot Cubic |
 | `tahap 1/daftar-paket.txt` | Daftar paket dan alasan pemilihan |
 
