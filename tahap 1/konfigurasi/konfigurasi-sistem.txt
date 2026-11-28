@@ -29,7 +29,9 @@ DESKTOP DAN LOGIN
 BRANDING
   Wallpaper              : /usr/share/backgrounds/distro-custom/wallpaper-distro.jpg
   Wallpaper user baru    : /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
-  /etc/os-release        : NAME dan PRETTY_NAME = "Host Container Mini"
+  /etc/os-release        : NAME = "Host Container Mini"
+                           PRETTY_NAME ditimpa Cubic saat generate menjadi
+                           "HostContainerMini (Cubic 2026-11-25 20:16)"
                            (ID_LIKE=debian dan VERSION_CODENAME=jammy tidak diubah)
   /etc/lsb-release       : DISTRIB_DESCRIPTION = "Host Container Mini"
 
@@ -37,7 +39,8 @@ BOOT SPLASH (PLYMOUTH)
   Tema                   : distro-splash (modul script)
   Lokasi                 : /usr/share/plymouth/themes/distro-splash/
   Logo                   : logo-distro.png
-  Kernel/initrd          : 5.15.0-204-generic (dipilih di tab Kernel Cubic)
+  Kernel/initrd          : 5.15.0-204-generic (dipilih di tab Kernel Cubic; dipakai sesi Live)
+  Sistem terinstal       : kernel 6.8.0-149-generic (hasil uname -a setelah instalasi ke disk)
 
 LOKALISASI
   Zona waktu             : Asia/Makassar
