@@ -360,7 +360,7 @@ Proyek_Sisitem_Operasi/
     │   ├── 2.png
     │   ├── ...
     │   ├── 29.png
-    │   └── 22_1.png
+    │   └── 22 (1).png
     │
     ├── skrip/
     │   └── instalasi.sh
