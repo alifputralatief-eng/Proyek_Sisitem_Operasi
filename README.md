@@ -60,7 +60,7 @@
 | Base | Ubuntu 22.04.5 LTS (Jammy) |
 | Arsitektur | x86_64 |
 | Desktop | XFCE4 + LightDM |
-| Kernel | 5.15.0-204-generic |
+| Kernel | 5.15.0-204-generic (sesi Live); sistem terinstal memakai 6.8.0-149-generic |
 | Boot splash | Plymouth tema kustom `distro-splash` |
 | Autologin | Ya (user live `ubuntu`, sesi XFCE) |
 | Fitur khusus | **B3**: info namespace dan cgroup suatu proses |
@@ -152,6 +152,8 @@ container-info 1        # untuk proses init (PID 1)
 container-info <PID>    # untuk proses lain
 ```
 
+> Untuk memeriksa proses milik root (misalnya PID 1), jalankan dengan `sudo container-info 1`. Tanpa `sudo`, namespace PID 1 tidak bisa dibaca oleh pengguna biasa dan muncul `Permission denied`. Proses milik pengguna sendiri bisa diperiksa tanpa `sudo`. Buktinya ada di [Gambar 19](tahap%201/screenshots/19.png).
+
 Contoh keluaran `container-info 1`:
 
 ```
@@ -176,7 +178,7 @@ lrwxrwxrwx 1 root root 0 ... uts    -> 'uts:[4026532318]'
 | Wallpaper desktop | `/usr/share/backgrounds/distro-custom/wallpaper-distro.jpg`, diatur lewat `xfce4-desktop.xml` di `/etc/skel` |
 | Wallpaper layar login | `/etc/lightdm/lightdm-gtk-greeter.conf` |
 | Boot splash | Tema Plymouth `distro-splash` (script module) dengan `logo-distro.png` |
-| Nama distro | `/etc/os-release` dan `/etc/lsb-release` diubah menjadi "Host Container Mini" (`ID_LIKE=debian` dan `VERSION_CODENAME=jammy` tidak diubah) |
+| Nama distro | `/etc/os-release` dan `/etc/lsb-release` diubah menjadi "Host Container Mini" (`ID_LIKE=debian` dan `VERSION_CODENAME=jammy` tidak diubah). Hasil akhir: `NAME="Host Container Mini"`; `PRETTY_NAME` ditimpa Cubic saat generate ISO (lihat [Catatan](#-catatan-dan-kendala)) |
 | Autologin | `/etc/lightdm/lightdm.conf.d/50-live-autologin.conf` |
 
 Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
@@ -219,58 +221,103 @@ Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
 
 ## ✅ Pengujian
 
-Pengujian dilakukan di VM baru (RAM 2-3 GB, 2 CPU, disk 25 GB, grafis VMSVGA), pertama dalam mode Live, lalu setelah instalasi ke disk.
+Pengujian dilakukan di VM baru (RAM 2 GB, disk virtual 25 GB), pertama dalam mode Live (boot dari ISO), lalu pada sistem yang sudah diinstal ke disk virtual (akun `uji`).
 
 | No | Yang diuji | Hasil | Bukti |
 |---|---|---|---|
-| 1 | Logo Plymouth muncul saat boot | ✅ | [Gambar 15](tahap%201/screenshots/15.png) |
-| 2 | Autologin langsung ke XFCE (mode Live) | ☐ | Gambar _ |
-| 3 | Wallpaper kustom tampil | ✅ | [Gambar 16](tahap%201/screenshots/16.png) |
-| 4 | Jendela first-login (namespace + cgroup) | ☐ | Gambar _ |
-| 5 | `runc --version`, `ip a` | ☐ | Gambar _ |
-| 6 | `container-info 1` | ☐ | Gambar _ |
-| 7 | `cat /etc/os-release` menampilkan "Host Container Mini" | ☐ | Gambar _ |
-| 8 | Instalasi ke disk berhasil, login sebagai `uji` | ✅ | [Gambar 16](tahap%201/screenshots/16.png), [Gambar 17](tahap%201/screenshots/17.png) |
-| 9 | Layar login LightDM dengan wallpaper kustom, login berhasil | ☐ | Gambar _ |
+| 1 | Logo Plymouth muncul saat boot | ✅ | [Gambar 15](tahap%201/screenshots/15.png), [Gambar 24](tahap%201/screenshots/24.png) |
+| 2 | Autologin langsung ke XFCE tanpa layar login (mode Live) | ✅ | [Gambar 25](tahap%201/screenshots/25.png), [Gambar 29](tahap%201/screenshots/29.png) |
+| 3 | Wallpaper kustom tampil di desktop | ✅ | [Gambar 16](tahap%201/screenshots/16.png), [Gambar 25](tahap%201/screenshots/25.png) |
+| 4 | Jendela first-login (sambutan, namespace, cgroup) | ✅ | [Gambar 29](tahap%201/screenshots/29.png) (Live), [Gambar 21](tahap%201/screenshots/21.png) (terinstal) |
+| 5 | `runc --version`, `ip a` | ✅ | [Gambar 18](tahap%201/screenshots/18.png) |
+| 6 | `container-info 1` (dengan dan tanpa `sudo`) | ✅ | [Gambar 19](tahap%201/screenshots/19.png) |
+| 7 | `cat /etc/os-release` menampilkan `NAME="Host Container Mini"` | ✅ | [Gambar 20](tahap%201/screenshots/20.png) |
+| 8 | Instalasi ke disk berhasil, login sebagai `uji` | ✅ | [Gambar 16](tahap%201/screenshots/16.png), [Gambar 17](tahap%201/screenshots/17.png), [Gambar 21](tahap%201/screenshots/21.png) |
+| 9 | Layar login LightDM dengan wallpaper kustom | ✅ | [Gambar 22_1](tahap%201/screenshots/22_1.png), [Gambar 22](tahap%201/screenshots/22.png) |
 
-> Ganti ☐ dengan ✅ dan isi nomor gambar setelah diuji. Klik nomor gambar untuk membuka file-nya, atau lihat galeri di bawah.
+Catatan hasil:
+- Baris 5: runc versi 1.3.4 dan antarmuka jaringan `enp0s3` mendapat alamat `10.0.2.15`.
+- Baris 7: `NAME` tampil "Host Container Mini". `PRETTY_NAME` tertulis `HostContainerMini (Cubic 2026-11-25 20:16)` karena ditimpa Cubic saat generate ISO.
+- Sesi Live memakai kernel 5.15.0-204-generic ([Gambar 29](tahap%201/screenshots/29.png)), sedangkan sistem terinstal memakai 6.8.0-149-generic ([Gambar 21](tahap%201/screenshots/21.png)).
 
 ### Galeri screenshot
 
 Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`tahap 1/screenshots/`](tahap%201/screenshots/).
 
+#### Pengujian mode Live (boot dari ISO)
+
 <table>
   <tr>
-    <td align="center"><a href="tahap%201/screenshots/1.png"><img src="tahap%201/screenshots/1.png" width="250"><br>Gambar 1</a></td>
-    <td align="center"><a href="tahap%201/screenshots/2.png"><img src="tahap%201/screenshots/2.png" width="250"><br>Gambar 2</a></td>
-    <td align="center"><a href="tahap%201/screenshots/3.png"><img src="tahap%201/screenshots/3.png" width="250"><br>Gambar 3</a></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/26.png"><img src="tahap%201/screenshots/26.png" width="250"><br><b>Gambar 26</b></a><br>Pengaturan VM: Optik masih kosong</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/27.png"><img src="tahap%201/screenshots/27.png" width="250"><br><b>Gambar 27</b></a><br>Pengaturan VM: ISO terpasang di Optik</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/23.png"><img src="tahap%201/screenshots/23.png" width="250"><br><b>Gambar 23</b></a><br>Menu GRUB dari ISO</td>
   </tr>
   <tr>
-    <td align="center"><a href="tahap%201/screenshots/4.png"><img src="tahap%201/screenshots/4.png" width="250"><br>Gambar 4</a></td>
-    <td align="center"><a href="tahap%201/screenshots/5.png"><img src="tahap%201/screenshots/5.png" width="250"><br>Gambar 5</a></td>
-    <td align="center"><a href="tahap%201/screenshots/6.png"><img src="tahap%201/screenshots/6.png" width="250"><br>Gambar 6</a></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/24.png"><img src="tahap%201/screenshots/24.png" width="250"><br><b>Gambar 24</b></a><br>Boot splash Plymouth (logo)</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/28.png"><img src="tahap%201/screenshots/28.png" width="250"><br><b>Gambar 28</b></a><br>Installer: pilih Try Host</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/25.png"><img src="tahap%201/screenshots/25.png" width="250"><br><b>Gambar 25</b></a><br>Desktop Live, pengguna Live session user</td>
   </tr>
   <tr>
-    <td align="center"><a href="tahap%201/screenshots/7.png"><img src="tahap%201/screenshots/7.png" width="250"><br>Gambar 7</a></td>
-    <td align="center"><a href="tahap%201/screenshots/8.png"><img src="tahap%201/screenshots/8.png" width="250"><br>Gambar 8</a></td>
-    <td align="center"><a href="tahap%201/screenshots/9.png"><img src="tahap%201/screenshots/9.png" width="250"><br>Gambar 9</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="tahap%201/screenshots/10.png"><img src="tahap%201/screenshots/10.png" width="250"><br>Gambar 10</a></td>
-    <td align="center"><a href="tahap%201/screenshots/11.png"><img src="tahap%201/screenshots/11.png" width="250"><br>Gambar 11</a></td>
-    <td align="center"><a href="tahap%201/screenshots/12.png"><img src="tahap%201/screenshots/12.png" width="250"><br>Gambar 12</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="tahap%201/screenshots/13.png"><img src="tahap%201/screenshots/13.png" width="250"><br>Gambar 13</a></td>
-    <td align="center"><a href="tahap%201/screenshots/14.png"><img src="tahap%201/screenshots/14.png" width="250"><br>Gambar 14</a></td>
-    <td align="center"><a href="tahap%201/screenshots/15.png"><img src="tahap%201/screenshots/15.png" width="250"><br>Gambar 15</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="tahap%201/screenshots/16.png"><img src="tahap%201/screenshots/16.png" width="250"><br>Gambar 16</a></td>
-    <td align="center"><a href="tahap%201/screenshots/17.png"><img src="tahap%201/screenshots/17.png" width="250"><br>Gambar 17</a></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/29.png"><img src="tahap%201/screenshots/29.png" width="250"><br><b>Gambar 29</b></a><br>First-login otomatis (mode Live)</td>
+    <td></td>
     <td></td>
   </tr>
 </table>
+
+#### Pengujian sistem terinstal (akun `uji`)
+
+<table>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/16.png"><img src="tahap%201/screenshots/16.png" width="250"><br><b>Gambar 16</b></a><br>Desktop sistem terinstal, wallpaper kustom</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/17.png"><img src="tahap%201/screenshots/17.png" width="250"><br><b>Gambar 17</b></a><br>Terminal pengguna uji</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/18.png"><img src="tahap%201/screenshots/18.png" width="250"><br><b>Gambar 18</b></a><br>runc --version dan ip a</td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/19.png"><img src="tahap%201/screenshots/19.png" width="250"><br><b>Gambar 19</b></a><br>container-info 1 dengan dan tanpa sudo</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/20.png"><img src="tahap%201/screenshots/20.png" width="250"><br><b>Gambar 20</b></a><br>cat /etc/os-release</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/21.png"><img src="tahap%201/screenshots/21.png" width="250"><br><b>Gambar 21</b></a><br>First-login pada sistem terinstal</td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/22.png"><img src="tahap%201/screenshots/22.png" width="250"><br><b>Gambar 22</b></a><br>Menu Log Out</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/22_1.png"><img src="tahap%201/screenshots/22_1.png" width="250"><br><b>Gambar 22_1</b></a><br>Layar login LightDM, wallpaper kustom</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/15.png"><img src="tahap%201/screenshots/15.png" width="250"><br><b>Gambar 15</b></a><br>Boot splash Plymouth (logo)</td>
+  </tr>
+</table>
+
+#### Proses build dan persiapan (Gambar 1-14)
+
+<details>
+<summary>Tampilkan Gambar 1-14</summary>
+
+<table>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/1.png"><img src="tahap%201/screenshots/1.png" width="250"><br><b>Gambar 1</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/2.png"><img src="tahap%201/screenshots/2.png" width="250"><br><b>Gambar 2</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/3.png"><img src="tahap%201/screenshots/3.png" width="250"><br><b>Gambar 3</b></a><br></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/4.png"><img src="tahap%201/screenshots/4.png" width="250"><br><b>Gambar 4</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/5.png"><img src="tahap%201/screenshots/5.png" width="250"><br><b>Gambar 5</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/6.png"><img src="tahap%201/screenshots/6.png" width="250"><br><b>Gambar 6</b></a><br></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/7.png"><img src="tahap%201/screenshots/7.png" width="250"><br><b>Gambar 7</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/8.png"><img src="tahap%201/screenshots/8.png" width="250"><br><b>Gambar 8</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/9.png"><img src="tahap%201/screenshots/9.png" width="250"><br><b>Gambar 9</b></a><br></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/10.png"><img src="tahap%201/screenshots/10.png" width="250"><br><b>Gambar 10</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/11.png"><img src="tahap%201/screenshots/11.png" width="250"><br><b>Gambar 11</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/12.png"><img src="tahap%201/screenshots/12.png" width="250"><br><b>Gambar 12</b></a><br></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/13.png"><img src="tahap%201/screenshots/13.png" width="250"><br><b>Gambar 13</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/14.png"><img src="tahap%201/screenshots/14.png" width="250"><br><b>Gambar 14</b></a><br></td>
+    <td></td>
+  </tr>
+</table>
+
+</details>
 
 ---
 
@@ -312,7 +359,8 @@ Proyek_Sisitem_Operasi/
     │   ├── 1.png
     │   ├── 2.png
     │   ├── ...
-    │   └── 17.png
+    │   ├── 29.png
+    │   └── 22_1.png
     │
     ├── skrip/
     │   └── instalasi.sh
@@ -324,7 +372,7 @@ Proyek_Sisitem_Operasi/
 |---|---|
 | `tahap 1/assets/` | Logo boot splash dan wallpaper |
 | `tahap 1/konfigurasi/konfigurasi-sistem.txt` | Ringkasan konfigurasi sistem |
-| `tahap 1/screenshots/` | Dokumentasi proses build dan pengujian (17 gambar) |
+| `tahap 1/screenshots/` | Dokumentasi proses build dan pengujian (30 gambar: `1.png` sampai `29.png` dan `22_1.png`) |
 | `tahap 1/skrip/instalasi.sh` | Seluruh perintah build di chroot Cubic |
 | `tahap 1/daftar-paket.txt` | Daftar paket dan alasan pemilihan |
 
@@ -339,6 +387,9 @@ Proyek_Sisitem_Operasi/
 | Disk VM kurang untuk Cubic | Disk awal hanya 20 GB | Perbesar ke 50 GB (Virtual Media Manager + GParted) |
 | Peringatan `cryptsetup` saat `update-initramfs` | Lingkungan chroot tidak punya `/dev/sda3` | Aman diabaikan |
 | Init system | Ubuntu memakai systemd, bukan BusyBox init | Paket `busybox` tetap dipasang sebagai utilitas dan rootfs uji. Konfirmasi ke dosen bila BusyBox init wajib |
+| `Permission denied` pada `container-info 1` | `/proc/1/ns` hanya bisa dibaca root | Jalankan `sudo container-info 1` ([Gambar 19](tahap%201/screenshots/19.png)) |
+| `PRETTY_NAME` bukan "Host Container Mini" | Cubic menimpa deskripsi rilis saat generate ISO | `NAME` tetap "Host Container Mini" ([Gambar 20](tahap%201/screenshots/20.png)); `PRETTY_NAME` mengikuti Volume ID dan waktu build Cubic |
+| Kernel sesi Live berbeda dengan sistem terinstal | Instalasi ke disk memasang kernel yang berbeda dari kernel sesi Live | Dicatat saja: Live 5.15.0-204 ([Gambar 29](tahap%201/screenshots/29.png)), terinstal 6.8.0-149 ([Gambar 21](tahap%201/screenshots/21.png)). Fitur container tetap berjalan ([Gambar 18](tahap%201/screenshots/18.png), [Gambar 19](tahap%201/screenshots/19.png)) |
 
 ---
 
