@@ -13,9 +13,11 @@ HASIL BUILD
   Volume ID              : HostContainerMini
   Release / Disk Name    : Host Container Mini
   Versi                  : 2026.11.25
-  Ukuran                 : 4,47 GiB (4.801.179.648 byte)
+  Ukuran                 : 4,47 GiB (4.801.540.096 byte)
   Kompresi               : gzip
-  Checksum MD5           : 5b4f58fa05c1dc19fedc80492c8b6af9
+  Checksum MD5           : c236a36c63c9756b8faa4756cb4a407f
+  Catatan                : Build ulang 28 November 2026 (tampilan baru:
+                           wallpaper, background login, logo boot).
 
 DESKTOP DAN LOGIN
   Desktop environment    : XFCE 4
@@ -27,17 +29,26 @@ DESKTOP DAN LOGIN
                            /etc/lightdm/lightdm-gtk-greeter.conf
 
 BRANDING
-  Wallpaper              : /usr/share/backgrounds/distro-custom/wallpaper-distro.jpg
+  Tema visual            : Paus pembawa tumpukan container (dibuat dengan bantuan AI,
+                           terinspirasi tema container/Docker, bukan logo resmi Docker)
+  Wallpaper desktop      : /usr/share/backgrounds/distro-custom/wallpaper-distro.jpg
+                           (1920x1080)
   Wallpaper user baru    : /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
-  /etc/os-release        : NAME dan PRETTY_NAME = "Host Container Mini"
+  Background login       : /usr/share/backgrounds/distro-custom/login-bg.jpg (1920x1080)
+                           (baris background= di /etc/lightdm/lightdm-gtk-greeter.conf)
+  /etc/os-release        : NAME = "Host Container Mini"
                            (ID_LIKE=debian dan VERSION_CODENAME=jammy tidak diubah)
+                           PRETTY_NAME dapat ditimpa Cubic saat generate ISO;
+                           hasil akhir dicek dengan: cat /etc/os-release
   /etc/lsb-release       : DISTRIB_DESCRIPTION = "Host Container Mini"
 
 BOOT SPLASH (PLYMOUTH)
   Tema                   : distro-splash (modul script)
   Lokasi                 : /usr/share/plymouth/themes/distro-splash/
-  Logo                   : logo-distro.png
+  Logo                   : logo-distro.png (256x256, PNG transparan)
   Kernel/initrd          : 5.15.0-204-generic (dipilih di tab Kernel Cubic)
+  Catatan                : Setelah mengganti logo dijalankan
+                           update-initramfs -u -k all
 
 LOKALISASI
   Zona waktu             : Asia/Makassar
