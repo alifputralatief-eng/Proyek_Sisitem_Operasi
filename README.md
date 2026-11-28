@@ -279,7 +279,7 @@ Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`
   </tr>
   <tr>
     <td align="center" valign="top"><a href="tahap%201/screenshots/22.png"><img src="tahap%201/screenshots/22.png" width="250"><br><b>Gambar 22</b></a><br>Menu Log Out</td>
-    <td align="center" valign="top"><a href="tahap%201/screenshots/22_1.png"><img src="tahap%201/screenshots/22_1.png" width="250"><br><b>Gambar 22_1</b></a><br>Layar login LightDM, wallpaper kustom</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/22 (1).png"><img src="tahap%201/screenshots/22_1.png" width="250"><br><b>Gambar 22_1</b></a><br>Layar login LightDM, wallpaper kustom</td>
     <td align="center" valign="top"><a href="tahap%201/screenshots/15.png"><img src="tahap%201/screenshots/15.png" width="250"><br><b>Gambar 15</b></a><br>Boot splash Plymouth (logo)</td>
   </tr>
 </table>
