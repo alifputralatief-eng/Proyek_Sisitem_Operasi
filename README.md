@@ -279,7 +279,7 @@ Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`
   </tr>
   <tr>
     <td align="center" valign="top"><a href="tahap%201/screenshots/22.png"><img src="tahap%201/screenshots/22.png" width="250"><br><b>Gambar 22</b></a><br>Menu Log Out</td>
-    <td align="center" valign="top"><a href="tahap%201/screenshots/22 (1).png"><img src="tahap%201/screenshots/22 (1).png" width="250"><br><b>Gambar 22 (1)</b></a><br>Layar login LightDM, wallpaper kustom</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/22 (1).png"><img src="tahap%201/screenshots/22 (1).png" width="250"><br><b>Gambar 22_1</b></a><br>Layar login LightDM, wallpaper kustom</td>
     <td align="center" valign="top"><a href="tahap%201/screenshots/15.png"><img src="tahap%201/screenshots/15.png" width="250"><br><b>Gambar 15</b></a><br>Boot splash Plymouth (logo)</td>
   </tr>
 </table>
@@ -309,6 +309,11 @@ Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`
     <td align="center" valign="top"><a href="tahap%201/screenshots/10.png"><img src="tahap%201/screenshots/10.png" width="250"><br><b>Gambar 10</b></a><br></td>
     <td align="center" valign="top"><a href="tahap%201/screenshots/11.png"><img src="tahap%201/screenshots/11.png" width="250"><br><b>Gambar 11</b></a><br></td>
     <td align="center" valign="top"><a href="tahap%201/screenshots/12.png"><img src="tahap%201/screenshots/12.png" width="250"><br><b>Gambar 12</b></a><br></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/13.png"><img src="tahap%201/screenshots/13.png" width="250"><br><b>Gambar 13</b></a><br></td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/14.png"><img src="tahap%201/screenshots/14.png" width="250"><br><b>Gambar 14</b></a><br></td>
+    <td></td>
   </tr>
 </table>
 
