@@ -1,0 +1,60 @@
+KONFIGURASI SISTEM - HOST CONTAINER MINI (TAHAP 1)
+==================================================
+
+IDENTITAS
+  Nama distro            : Host Container Mini
+  Dasar                  : Ubuntu 22.04.5 LTS (Jammy Jellyfish), x86_64
+  ISO induk              : ubuntu-22.04.5-desktop-amd64.iso
+  Alat remaster          : Cubic (ppa:cubic-wizard/release)
+  Tema                   : Distro pengembang container (host container mini)
+
+HASIL BUILD
+  Berkas ISO             : host-container-mini.iso
+  Volume ID              : HostContainerMini
+  Release / Disk Name    : Host Container Mini
+  Versi                  : 2026.11.25
+  Ukuran                 : 4,47 GiB (4.801.179.648 byte)
+  Kompresi               : gzip
+  Checksum MD5           : 5b4f58fa05c1dc19fedc80492c8b6af9
+
+DESKTOP DAN LOGIN
+  Desktop environment    : XFCE 4
+  Display manager        : LightDM (/usr/sbin/lightdm)
+  Greeter                : lightdm-gtk-greeter (tema Greybird, ikon elementary-xfce-dark)
+  Autologin (Live)       : user "ubuntu", sesi xfce
+  Berkas konfigurasi     : /etc/lightdm/lightdm.conf.d/50-xfce-default.conf
+                           /etc/lightdm/lightdm.conf.d/50-live-autologin.conf
+                           /etc/lightdm/lightdm-gtk-greeter.conf
+
+BRANDING
+  Wallpaper              : /usr/share/backgrounds/distro-custom/wallpaper-distro.jpg
+  Wallpaper user baru    : /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+  /etc/os-release        : NAME dan PRETTY_NAME = "Host Container Mini"
+                           (ID_LIKE=debian dan VERSION_CODENAME=jammy tidak diubah)
+  /etc/lsb-release       : DISTRIB_DESCRIPTION = "Host Container Mini"
+
+BOOT SPLASH (PLYMOUTH)
+  Tema                   : distro-splash (modul script)
+  Lokasi                 : /usr/share/plymouth/themes/distro-splash/
+  Logo                   : logo-distro.png
+  Kernel/initrd          : 5.15.0-204-generic (dipilih di tab Kernel Cubic)
+
+LOKALISASI
+  Zona waktu             : Asia/Makassar
+  Locale                 : en_US.UTF-8 (id_ID.UTF-8 juga tersedia)
+
+INIT SYSTEM
+  Init                   : systemd (bawaan Ubuntu)
+  Catatan                : Paket "busybox" terpasang sebagai alat bantu rootfs
+                           container, bukan sebagai init sistem.
+
+FITUR B3 (info namespace/cgroup suatu proses)
+  Perintah               : container-info [PID]   (/usr/local/bin/container-info)
+  Isi                    : ls -l /proc/PID/ns  dan  cat /proc/PID/cgroup
+  First-login            : /usr/local/bin/first-login.sh (autostart dari /etc/skel)
+                           menampilkan sambutan, namespace, dan cgroup proses saat
+                           pertama kali login.
+
+LINGKUNGAN BUILD
+  Host                   : VM Ubuntu 22.04 di Oracle VirtualBox (Windows)
+  Folder bersama         : C:\Proyek_5  ->  /media/sf_Proyek_5
