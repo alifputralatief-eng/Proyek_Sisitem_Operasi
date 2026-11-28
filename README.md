@@ -25,6 +25,7 @@
 9. [Download ISO](#-download-iso)
 10. [Struktur Repositori](#-struktur-repositori)
 11. [Catatan dan Kendala](#-catatan-dan-kendala)
+12. [Sumber dan Referensi](#-sumber-dan-referensi)
 
 ---
 
@@ -66,7 +67,7 @@
 | Fitur khusus | **B3**: info namespace dan cgroup suatu proses |
 | Zona waktu | Asia/Makassar |
 | Alat build | Cubic (Custom Ubuntu ISO Creator) |
-| Ukuran ISO | 4,47 GiB (4.801.179.648 byte) |
+| Ukuran ISO | 4,47 GiB (4.801.540.096 byte) |
 
 Ringkasan konfigurasi lengkap: [`tahap 1/konfigurasi/konfigurasi-sistem.txt`](tahap%201/konfigurasi/konfigurasi-sistem.txt).
 
@@ -76,7 +77,7 @@ Ringkasan konfigurasi lengkap: [`tahap 1/konfigurasi/konfigurasi-sistem.txt`](ta
 
 | Tahap | Fokus | Status | Dokumentasi |
 |---|---|---|---|
-| **Tahap 1** | Remastering Ubuntu dengan Cubic, XFCE + LightDM, autologin, wallpaper, Plymouth, 10 paket container, branding, skrip B3 | ✅ Selesai | [Folder `tahap 1/`](tahap%201/) |
+| **Tahap 1** | Remastering Ubuntu dengan Cubic, XFCE + LightDM, autologin, wallpaper, background login, Plymouth, 10 paket container, branding, skrip B3 | ✅ Selesai | [Folder `tahap 1/`](tahap%201/) |
 | **Tahap 2** | Pengembangan lanjutan | ⏳ Menyusul | - |
 
 ---
@@ -173,15 +174,21 @@ lrwxrwxrwx 1 root root 0 ... uts    -> 'uts:[4026532318]'
 
 ## 🎨 Kustomisasi Tampilan
 
-| Elemen | Cara |
-|---|---|
-| Wallpaper desktop | `/usr/share/backgrounds/distro-custom/wallpaper-distro.jpg`, diatur lewat `xfce4-desktop.xml` di `/etc/skel` |
-| Wallpaper layar login | `/etc/lightdm/lightdm-gtk-greeter.conf` |
-| Boot splash | Tema Plymouth `distro-splash` (script module) dengan `logo-distro.png` |
-| Nama distro | `/etc/os-release` dan `/etc/lsb-release` diubah menjadi "Host Container Mini" (`ID_LIKE=debian` dan `VERSION_CODENAME=jammy` tidak diubah). Hasil akhir: `NAME="Host Container Mini"`; `PRETTY_NAME` ditimpa Cubic saat generate ISO (lihat [Catatan](#-catatan-dan-kendala)) |
-| Autologin | `/etc/lightdm/lightdm.conf.d/50-live-autologin.conf` |
+Tema visual: **paus pembawa tumpukan container** (terinspirasi tema container/Docker, digambar sendiri dengan palet warna berbeda). Logo dan kedua background memakai palet yang senada (biru, cyan, tosca, coral).
+
+| Elemen | Berkas | Cara |
+|---|---|---|
+| Wallpaper desktop | `/usr/share/backgrounds/distro-custom/wallpaper-distro.jpg` (1920×1080) | Diatur lewat `xfce4-desktop.xml` di `/etc/skel` |
+| Background layar login | `/usr/share/backgrounds/distro-custom/login-bg.jpg` (1920×1080) | Baris `background=` di `/etc/lightdm/lightdm-gtk-greeter.conf`; sengaja berbeda dari wallpaper desktop |
+| Boot splash | `/usr/share/plymouth/themes/distro-splash/logo-distro.png` (256×256, PNG transparan) | Tema Plymouth `distro-splash` (script module), lalu `update-initramfs -u -k all` |
+| Nama distro | `/etc/os-release` dan `/etc/lsb-release` | Diubah menjadi "Host Container Mini" (`ID_LIKE=debian` dan `VERSION_CODENAME=jammy` tidak diubah). Hasil akhir: `NAME="Host Container Mini"`; `PRETTY_NAME` ditimpa Cubic saat generate ISO (lihat [Catatan](#-catatan-dan-kendala)) |
+| Autologin | `/etc/lightdm/lightdm.conf.d/50-live-autologin.conf` | Autologin user live `ubuntu` |
 
 Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
+
+| Logo | Wallpaper desktop | Background login |
+|---|---|---|
+| <img src="tahap%201/assets/logo-distro.png" width="120"> | <img src="tahap%201/assets/wallpaper-distro.jpg" width="250"> | <img src="tahap%201/assets/login-bg.jpg" width="250"> |
 
 ---
 
@@ -190,7 +197,7 @@ Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
 ### Persiapan
 - VM Ubuntu 22.04 di VirtualBox: RAM 3 GB, 2 CPU, disk 50 GB.
 - Shared folder VirtualBox (Guest Additions terpasang).
-- Bahan: ISO `ubuntu-22.04.5-desktop-amd64.iso`, `logo-distro.png`, `wallpaper-distro.jpg`.
+- Bahan: ISO `ubuntu-22.04.5-desktop-amd64.iso`, `logo-distro.png`, `wallpaper-distro.jpg`, `login-bg.jpg`.
 
 ### Langkah singkat
 
@@ -198,7 +205,7 @@ Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
    ```bash
    mkdir -p ~/cubic-proyek ~/assets
    rsync -ah --progress /media/sf_Proyek_5/ubuntu-22.04.5-desktop-amd64.iso ~/cubic-proyek/
-   cp /media/sf_Proyek_5/logo-distro.png /media/sf_Proyek_5/wallpaper-distro.jpg ~/assets/
+   cp /media/sf_Proyek_5/logo-distro.png /media/sf_Proyek_5/wallpaper-distro.jpg /media/sf_Proyek_5/login-bg.jpg ~/assets/
    ```
 2. **Pasang Cubic:**
    ```bash
@@ -207,15 +214,36 @@ Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
    sudo apt update && sudo apt install -y cubic
    ```
 3. **Buat proyek di Cubic:** project directory `~/cubic-proyek`, pilih ISO lokal, isi Filename `host-container-mini.iso` dan Volume ID `HostContainerMini`.
-4. **Di terminal Cubic (chroot):** jalankan langkah berikut secara manual, atau sekaligus lewat skrip [`tahap 1/skrip/instalasi.sh`](tahap%201/skrip/instalasi.sh) (*drag-and-drop* `instalasi.sh`, `wallpaper-distro.jpg`, dan `logo-distro.png` ke terminal Cubic, klik **Copy**, lalu `bash instalasi.sh`).
+4. **Di terminal Cubic (chroot):** jalankan langkah berikut secara manual, atau sekaligus lewat skrip [`tahap 1/skrip/instalasi.sh`](tahap%201/skrip/instalasi.sh) (*drag-and-drop* `instalasi.sh`, `wallpaper-distro.jpg`, `login-bg.jpg`, dan `logo-distro.png` ke terminal Cubic, klik **Copy**, lalu `bash instalasi.sh`).
    1. Update repo (`universe`, `multiverse`)
    2. Pasang XFCE + LightDM, hapus GNOME dan aplikasi berat
    3. Atur autologin
-   4. Pasang wallpaper dan konfigurasi desktop/login
-   5. Buat tema Plymouth, lalu `update-initramfs -u -k all`
+   4. Pasang wallpaper desktop dan background login (`login-bg.jpg`), lalu arahkan `lightdm-gtk-greeter.conf`
+   5. Buat tema Plymouth dengan logo baru, lalu `update-initramfs -u -k all`
    6. Pasang 10 paket, branding, zona waktu, skrip B3
    7. Bersihkan cache (`apt clean`)
 5. **Generate:** tab Packages dibiarkan default, tab Kernel pilih `5.15.0-204-generic`, tab Compression pilih `gzip`, lalu klik **Generate**.
+
+### Mengganti tampilan pada proyek yang sudah ada
+
+Untuk mengganti wallpaper, background login, dan logo tanpa mengulang dari awal, buka kembali proyek `~/cubic-proyek` di Cubic sampai terminal `root@cubic` muncul, lalu:
+
+```bash
+cd /usr/share/backgrounds/distro-custom
+rm -f wallpaper-distro.jpg login-bg.jpg
+# seret wallpaper-distro.jpg dan login-bg.jpg ke terminal Cubic, klik Copy
+chmod 755 /usr/share/backgrounds/distro-custom
+chmod 644 /usr/share/backgrounds/distro-custom/*.jpg
+sed -i 's#^background=.*#background=/usr/share/backgrounds/distro-custom/login-bg.jpg#' /etc/lightdm/lightdm-gtk-greeter.conf
+
+cd /usr/share/plymouth/themes/distro-splash
+rm -f logo-distro.png
+# seret logo-distro.png ke terminal Cubic, klik Copy
+chmod 644 logo-distro.png
+update-initramfs -u -k all
+```
+
+Lalu Generate ulang dengan kernel `5.15.0-204-generic` dan kompresi `gzip`.
 
 ---
 
@@ -233,11 +261,11 @@ Pengujian dilakukan di VM baru (RAM 2 GB, disk virtual 25 GB), pertama dalam mod
 | 6 | `container-info 1` (dengan dan tanpa `sudo`) | ✅ | [Gambar 19](tahap%201/screenshots/19.png) |
 | 7 | `cat /etc/os-release` menampilkan `NAME="Host Container Mini"` | ✅ | [Gambar 20](tahap%201/screenshots/20.png) |
 | 8 | Instalasi ke disk berhasil, login sebagai `uji` | ✅ | [Gambar 16](tahap%201/screenshots/16.png), [Gambar 17](tahap%201/screenshots/17.png), [Gambar 21](tahap%201/screenshots/21.png) |
-| 9 | Layar login LightDM dengan wallpaper kustom | ✅ | [Gambar 22 (1)](tahap%201/screenshots/22%20%281%29.png), [Gambar 22](tahap%201/screenshots/22.png) |
+| 9 | Layar login LightDM dengan background login kustom | ✅ | [Gambar 22 (1)](tahap%201/screenshots/22%20%281%29.png), [Gambar 22](tahap%201/screenshots/22.png) |
 
 Catatan hasil:
 - Baris 5: runc versi 1.3.4 dan antarmuka jaringan `enp0s3` mendapat alamat `10.0.2.15`.
-- Baris 7: `NAME` tampil "Host Container Mini". `PRETTY_NAME` tertulis `HostContainerMini (Cubic 2026-11-25 20:16)` karena ditimpa Cubic saat generate ISO.
+- Baris 7: `NAME` tampil "Host Container Mini". `PRETTY_NAME` tertulis `HostContainerMini (Cubic ...)` karena ditimpa Cubic saat generate ISO.
 - Sesi Live memakai kernel 5.15.0-204-generic ([Gambar 29](tahap%201/screenshots/29.png)), sedangkan sistem terinstal memakai 6.8.0-149-generic ([Gambar 21](tahap%201/screenshots/21.png)).
 
 ### Galeri screenshot
@@ -277,7 +305,7 @@ Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`
   </tr>
   <tr>
     <td align="center" valign="top"><a href="tahap%201/screenshots/22.png"><img src="tahap%201/screenshots/22.png" width="250"><br><b>Gambar 22</b></a><br>Menu Log Out</td>
-    <td align="center" valign="top"><a href="tahap%201/screenshots/22%20%281%29.png"><img src="tahap%201/screenshots/22%20%281%29.png" width="250"><br><b>Gambar 22 (1)</b></a><br>Layar login LightDM, wallpaper kustom</td>
+    <td align="center" valign="top"><a href="tahap%201/screenshots/22%20%281%29.png"><img src="tahap%201/screenshots/22%20%281%29.png" width="250"><br><b>Gambar 22 (1)</b></a><br>Layar login LightDM, background login kustom</td>
     <td align="center" valign="top"><a href="tahap%201/screenshots/15.png"><img src="tahap%201/screenshots/15.png" width="250"><br><b>Gambar 15</b></a><br>Boot splash Plymouth (logo)</td>
   </tr>
 </table>
@@ -326,8 +354,8 @@ ISO berukuran 4,47 GiB sehingga tidak bisa diunggah ke GitHub (batas 100 MB per 
 |---|---|
 | Link unduh | `ISI_LINK_GOOGLE_DRIVE_ATAU_ONEDRIVE` |
 | Nama file | `host-container-mini.iso` |
-| Ukuran | 4.801.179.648 byte |
-| MD5 | `5b4f58fa05c1dc19fedc80492c8b6af9` |
+| Ukuran | 4.801.540.096 byte |
+| MD5 | `c236a36c63c9756b8faa4756cb4a407f` |
 
 Verifikasi setelah mengunduh:
 
@@ -347,7 +375,8 @@ Proyek_Sisitem_Operasi/
 └── tahap 1/
     ├── assets/
     │   ├── logo-distro.png
-    │   └── wallpaper-distro.jpg
+    │   ├── wallpaper-distro.jpg
+    │   └── login-bg.jpg
     │
     ├── konfigurasi/
     │   └── konfigurasi-sistem.txt
@@ -367,7 +396,7 @@ Proyek_Sisitem_Operasi/
 
 | Berkas / folder | Isi |
 |---|---|
-| `tahap 1/assets/` | Logo boot splash dan wallpaper |
+| `tahap 1/assets/` | Logo boot splash, wallpaper desktop, dan background layar login |
 | `tahap 1/konfigurasi/konfigurasi-sistem.txt` | Ringkasan konfigurasi sistem |
 | `tahap 1/screenshots/` | Dokumentasi proses build dan pengujian (30 gambar: `1.png` sampai `29.png` dan `22 (1).png`) |
 | `tahap 1/skrip/instalasi.sh` | Seluruh perintah build di chroot Cubic |
@@ -387,6 +416,19 @@ Proyek_Sisitem_Operasi/
 | `Permission denied` pada `container-info 1` | `/proc/1/ns` hanya bisa dibaca root | Jalankan `sudo container-info 1` ([Gambar 19](tahap%201/screenshots/19.png)) |
 | `PRETTY_NAME` bukan "Host Container Mini" | Cubic menimpa deskripsi rilis saat generate ISO | `NAME` tetap "Host Container Mini" ([Gambar 20](tahap%201/screenshots/20.png)); `PRETTY_NAME` mengikuti Volume ID dan waktu build Cubic |
 | Kernel sesi Live berbeda dengan sistem terinstal | Instalasi ke disk memasang kernel yang berbeda dari kernel sesi Live | Dicatat saja: Live 5.15.0-204 ([Gambar 29](tahap%201/screenshots/29.png)), terinstal 6.8.0-149 ([Gambar 21](tahap%201/screenshots/21.png)). Fitur container tetap berjalan ([Gambar 18](tahap%201/screenshots/18.png), [Gambar 19](tahap%201/screenshots/19.png)) |
+| Logo dan background tidak berubah setelah build ulang | Berkas lama belum terhapus, atau `update-initramfs` terlewat | Hapus berkas lama dengan `rm -f` sebelum menyalin yang baru, lalu jalankan `update-initramfs -u -k all` setelah mengganti logo |
+| Desktop akun uji masih menampilkan wallpaper lama | Pengaturan XFCE sudah tersimpan sejak login pertama | Klik kanan desktop, pilih Desktop Settings, lalu pilih `wallpaper-distro.jpg` |
+
+---
+
+## 📚 Sumber dan Referensi
+
+- Panduan Build Distro Kustom Tahap 1 (dosen pengampu, mata kuliah Sistem Operasi).
+- Ubuntu 22.04.5 LTS (Canonical) sebagai base. Nama dan logo "Ubuntu" tidak dipakai sebagai merek distro ini.
+- Cubic (Custom Ubuntu ISO Creator) sebagai alat remaster.
+- Logo, wallpaper, dan background login dibuat dengan bantuan AI (Claude, Anthropic), dengan tema paus pembawa container yang terinspirasi dari tema container/Docker. Gambar dibuat sendiri, bukan logo resmi Docker.
+- Skrip `first-login.sh` dan `container-info` disusun dengan bantuan AI berdasarkan panduan Tahap 1.
+- Dokumentasi ini (README) disusun dengan bantuan AI dari data build dan pengujian kelompok. Semua tangkapan layar berasal dari VM kelompok sendiri.
 
 ---
 
