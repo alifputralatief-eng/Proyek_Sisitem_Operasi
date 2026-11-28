@@ -223,14 +223,14 @@ Pengujian dilakukan di VM baru (RAM 2-3 GB, 2 CPU, disk 25 GB, grafis VMSVGA), p
 
 | No | Yang diuji | Hasil | Bukti |
 |---|---|---|---|
-| 1 | Logo Plymouth muncul saat boot | ☐ | [Gambar 15](tahap%201/screenshots/15.png) |
-| 2 | Autologin langsung ke XFCE (mode Live) | ☐ | [Gambar 16](tahap%201/screenshots/16.png) |
-| 3 | Wallpaper kustom tampil | ☐ | [Gambar 16](tahap%201/screenshots/16.png) |
+| 1 | Logo Plymouth muncul saat boot | ✅ | [Gambar 15](tahap%201/screenshots/15.png) |
+| 2 | Autologin langsung ke XFCE (mode Live) | ☐ | Gambar _ |
+| 3 | Wallpaper kustom tampil | ✅ | [Gambar 16](tahap%201/screenshots/16.png) |
 | 4 | Jendela first-login (namespace + cgroup) | ☐ | Gambar _ |
 | 5 | `runc --version`, `ip a` | ☐ | Gambar _ |
 | 6 | `container-info 1` | ☐ | Gambar _ |
 | 7 | `cat /etc/os-release` menampilkan "Host Container Mini" | ☐ | Gambar _ |
-| 8 | Instalasi ke disk berhasil | ☐ | Gambar _ |
+| 8 | Instalasi ke disk berhasil, login sebagai `uji` | ✅ | [Gambar 16](tahap%201/screenshots/16.png), [Gambar 17](tahap%201/screenshots/17.png) |
 | 9 | Layar login LightDM dengan wallpaper kustom, login berhasil | ☐ | Gambar _ |
 
 > Ganti ☐ dengan ✅ dan isi nomor gambar setelah diuji. Klik nomor gambar untuk membuka file-nya, atau lihat galeri di bawah.
