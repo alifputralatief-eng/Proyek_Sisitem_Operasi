@@ -68,7 +68,7 @@
 | Alat build | Cubic (Custom Ubuntu ISO Creator) |
 | Ukuran ISO | 4,47 GiB (4.801.179.648 byte) |
 
-Ringkasan konfigurasi lengkap: [`tahap1/konfigurasi/konfigurasi-sistem.txt`](tahap1/konfigurasi/konfigurasi-sistem.txt).
+Ringkasan konfigurasi lengkap: [`tahap 1/konfigurasi/konfigurasi-sistem.txt`](tahap%201/konfigurasi/konfigurasi-sistem.txt).
 
 ---
 
@@ -76,7 +76,7 @@ Ringkasan konfigurasi lengkap: [`tahap1/konfigurasi/konfigurasi-sistem.txt`](tah
 
 | Tahap | Fokus | Status | Dokumentasi |
 |---|---|---|---|
-| **Tahap 1** | Remastering Ubuntu dengan Cubic, XFCE + LightDM, autologin, wallpaper, Plymouth, 10 paket container, branding, skrip B3 | ✅ Selesai | [Folder `tahap1/`](tahap1/) |
+| **Tahap 1** | Remastering Ubuntu dengan Cubic, XFCE + LightDM, autologin, wallpaper, Plymouth, 10 paket container, branding, skrip B3 | ✅ Selesai | [Folder `tahap 1/`](tahap%201/) |
 | **Tahap 2** | Pengembangan lanjutan | ⏳ Menyusul | - |
 
 ---
@@ -130,7 +130,7 @@ apt autoremove -y
 
 Setelah itu `ubiquity`, `ubiquity-frontend-gtk`, dan `casper` dipasang ulang agar installer dan mode Live tetap utuh.
 
-Daftar lengkap (termasuk paket dasar sistem): [`tahap1/daftar-paket.txt`](tahap1/daftar-paket.txt).
+Daftar lengkap (termasuk paket dasar sistem): [`tahap 1/daftar-paket.txt`](tahap%201/daftar-paket.txt).
 
 ---
 
@@ -179,7 +179,7 @@ lrwxrwxrwx 1 root root 0 ... uts    -> 'uts:[4026532318]'
 | Nama distro | `/etc/os-release` dan `/etc/lsb-release` diubah menjadi "Host Container Mini" (`ID_LIKE=debian` dan `VERSION_CODENAME=jammy` tidak diubah) |
 | Autologin | `/etc/lightdm/lightdm.conf.d/50-live-autologin.conf` |
 
-Berkas gambar ada di [`tahap1/assets/`](tahap1/assets/).
+Berkas gambar ada di [`tahap 1/assets/`](tahap%201/assets/).
 
 ---
 
@@ -205,7 +205,7 @@ Berkas gambar ada di [`tahap1/assets/`](tahap1/assets/).
    sudo apt update && sudo apt install -y cubic
    ```
 3. **Buat proyek di Cubic:** project directory `~/cubic-proyek`, pilih ISO lokal, isi Filename `host-container-mini.iso` dan Volume ID `HostContainerMini`.
-4. **Di terminal Cubic (chroot):** jalankan langkah berikut secara manual, atau sekaligus lewat skrip [`tahap1/skrip/instalasi.sh`](tahap1/skrip/instalasi.sh) (*drag-and-drop* `instalasi.sh`, `wallpaper-distro.jpg`, dan `logo-distro.png` ke terminal Cubic, klik **Copy**, lalu `bash instalasi.sh`).
+4. **Di terminal Cubic (chroot):** jalankan langkah berikut secara manual, atau sekaligus lewat skrip [`tahap 1/skrip/instalasi.sh`](tahap%201/skrip/instalasi.sh) (*drag-and-drop* `instalasi.sh`, `wallpaper-distro.jpg`, dan `logo-distro.png` ke terminal Cubic, klik **Copy**, lalu `bash instalasi.sh`).
    1. Update repo (`universe`, `multiverse`)
    2. Pasang XFCE + LightDM, hapus GNOME dan aplikasi berat
    3. Atur autologin
@@ -223,9 +223,9 @@ Pengujian dilakukan di VM baru (RAM 2-3 GB, 2 CPU, disk 25 GB, grafis VMSVGA), p
 
 | No | Yang diuji | Hasil | Bukti |
 |---|---|---|---|
-| 1 | Logo Plymouth muncul saat boot | ☐ | [Gambar 15](tahap1/screenshots/15.png) |
-| 2 | Autologin langsung ke XFCE (mode Live) | ☐ | [Gambar 16](tahap1/screenshots/16.png) |
-| 3 | Wallpaper kustom tampil | ☐ | [Gambar 16](tahap1/screenshots/16.png) |
+| 1 | Logo Plymouth muncul saat boot | ☐ | [Gambar 15](tahap%201/screenshots/15.png) |
+| 2 | Autologin langsung ke XFCE (mode Live) | ☐ | [Gambar 16](tahap%201/screenshots/16.png) |
+| 3 | Wallpaper kustom tampil | ☐ | [Gambar 16](tahap%201/screenshots/16.png) |
 | 4 | Jendela first-login (namespace + cgroup) | ☐ | Gambar _ |
 | 5 | `runc --version`, `ip a` | ☐ | Gambar _ |
 | 6 | `container-info 1` | ☐ | Gambar _ |
@@ -237,37 +237,37 @@ Pengujian dilakukan di VM baru (RAM 2-3 GB, 2 CPU, disk 25 GB, grafis VMSVGA), p
 
 ### Galeri screenshot
 
-Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`tahap1/screenshots/`](tahap1/screenshots/).
+Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`tahap 1/screenshots/`](tahap%201/screenshots/).
 
 <table>
   <tr>
-    <td align="center"><a href="tahap1/screenshots/1.png"><img src="tahap1/screenshots/1.png" width="250"><br>Gambar 1</a></td>
-    <td align="center"><a href="tahap1/screenshots/2.png"><img src="tahap1/screenshots/2.png" width="250"><br>Gambar 2</a></td>
-    <td align="center"><a href="tahap1/screenshots/3.png"><img src="tahap1/screenshots/3.png" width="250"><br>Gambar 3</a></td>
+    <td align="center"><a href="tahap%201/screenshots/1.png"><img src="tahap%201/screenshots/1.png" width="250"><br>Gambar 1</a></td>
+    <td align="center"><a href="tahap%201/screenshots/2.png"><img src="tahap%201/screenshots/2.png" width="250"><br>Gambar 2</a></td>
+    <td align="center"><a href="tahap%201/screenshots/3.png"><img src="tahap%201/screenshots/3.png" width="250"><br>Gambar 3</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="tahap1/screenshots/4.png"><img src="tahap1/screenshots/4.png" width="250"><br>Gambar 4</a></td>
-    <td align="center"><a href="tahap1/screenshots/5.png"><img src="tahap1/screenshots/5.png" width="250"><br>Gambar 5</a></td>
-    <td align="center"><a href="tahap1/screenshots/6.png"><img src="tahap1/screenshots/6.png" width="250"><br>Gambar 6</a></td>
+    <td align="center"><a href="tahap%201/screenshots/4.png"><img src="tahap%201/screenshots/4.png" width="250"><br>Gambar 4</a></td>
+    <td align="center"><a href="tahap%201/screenshots/5.png"><img src="tahap%201/screenshots/5.png" width="250"><br>Gambar 5</a></td>
+    <td align="center"><a href="tahap%201/screenshots/6.png"><img src="tahap%201/screenshots/6.png" width="250"><br>Gambar 6</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="tahap1/screenshots/7.png"><img src="tahap1/screenshots/7.png" width="250"><br>Gambar 7</a></td>
-    <td align="center"><a href="tahap1/screenshots/8.png"><img src="tahap1/screenshots/8.png" width="250"><br>Gambar 8</a></td>
-    <td align="center"><a href="tahap1/screenshots/9.png"><img src="tahap1/screenshots/9.png" width="250"><br>Gambar 9</a></td>
+    <td align="center"><a href="tahap%201/screenshots/7.png"><img src="tahap%201/screenshots/7.png" width="250"><br>Gambar 7</a></td>
+    <td align="center"><a href="tahap%201/screenshots/8.png"><img src="tahap%201/screenshots/8.png" width="250"><br>Gambar 8</a></td>
+    <td align="center"><a href="tahap%201/screenshots/9.png"><img src="tahap%201/screenshots/9.png" width="250"><br>Gambar 9</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="tahap1/screenshots/10.png"><img src="tahap1/screenshots/10.png" width="250"><br>Gambar 10</a></td>
-    <td align="center"><a href="tahap1/screenshots/11.png"><img src="tahap1/screenshots/11.png" width="250"><br>Gambar 11</a></td>
-    <td align="center"><a href="tahap1/screenshots/12.png"><img src="tahap1/screenshots/12.png" width="250"><br>Gambar 12</a></td>
+    <td align="center"><a href="tahap%201/screenshots/10.png"><img src="tahap%201/screenshots/10.png" width="250"><br>Gambar 10</a></td>
+    <td align="center"><a href="tahap%201/screenshots/11.png"><img src="tahap%201/screenshots/11.png" width="250"><br>Gambar 11</a></td>
+    <td align="center"><a href="tahap%201/screenshots/12.png"><img src="tahap%201/screenshots/12.png" width="250"><br>Gambar 12</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="tahap1/screenshots/13.png"><img src="tahap1/screenshots/13.png" width="250"><br>Gambar 13</a></td>
-    <td align="center"><a href="tahap1/screenshots/14.png"><img src="tahap1/screenshots/14.png" width="250"><br>Gambar 14</a></td>
-    <td align="center"><a href="tahap1/screenshots/15.png"><img src="tahap1/screenshots/15.png" width="250"><br>Gambar 15</a></td>
+    <td align="center"><a href="tahap%201/screenshots/13.png"><img src="tahap%201/screenshots/13.png" width="250"><br>Gambar 13</a></td>
+    <td align="center"><a href="tahap%201/screenshots/14.png"><img src="tahap%201/screenshots/14.png" width="250"><br>Gambar 14</a></td>
+    <td align="center"><a href="tahap%201/screenshots/15.png"><img src="tahap%201/screenshots/15.png" width="250"><br>Gambar 15</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="tahap1/screenshots/16.png"><img src="tahap1/screenshots/16.png" width="250"><br>Gambar 16</a></td>
-    <td align="center"><a href="tahap1/screenshots/17.png"><img src="tahap1/screenshots/17.png" width="250"><br>Gambar 17</a></td>
+    <td align="center"><a href="tahap%201/screenshots/16.png"><img src="tahap%201/screenshots/16.png" width="250"><br>Gambar 16</a></td>
+    <td align="center"><a href="tahap%201/screenshots/17.png"><img src="tahap%201/screenshots/17.png" width="250"><br>Gambar 17</a></td>
     <td></td>
   </tr>
 </table>
@@ -300,7 +300,7 @@ Windows (PowerShell): `Get-FileHash host-container-mini.iso -Algorithm MD5`
 ```
 Proyek_Sisitem_Operasi/
 ├── README.md
-└── tahap1/
+└── tahap 1/
     ├── assets/
     │   ├── logo-distro.png
     │   └── wallpaper-distro.jpg
@@ -322,11 +322,11 @@ Proyek_Sisitem_Operasi/
 
 | Berkas / folder | Isi |
 |---|---|
-| `tahap1/assets/` | Logo boot splash dan wallpaper |
-| `tahap1/konfigurasi/konfigurasi-sistem.txt` | Ringkasan konfigurasi sistem |
-| `tahap1/screenshots/` | Dokumentasi proses build dan pengujian (17 gambar) |
-| `tahap1/skrip/instalasi.sh` | Seluruh perintah build di chroot Cubic |
-| `tahap1/daftar-paket.txt` | Daftar paket dan alasan pemilihan |
+| `tahap 1/assets/` | Logo boot splash dan wallpaper |
+| `tahap 1/konfigurasi/konfigurasi-sistem.txt` | Ringkasan konfigurasi sistem |
+| `tahap 1/screenshots/` | Dokumentasi proses build dan pengujian (17 gambar) |
+| `tahap 1/skrip/instalasi.sh` | Seluruh perintah build di chroot Cubic |
+| `tahap 1/daftar-paket.txt` | Daftar paket dan alasan pemilihan |
 
 ---
 
