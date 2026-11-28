@@ -310,11 +310,6 @@ Klik gambar untuk membukanya dalam ukuran penuh. Semua tangkapan layar ada di [`
     <td align="center" valign="top"><a href="tahap%201/screenshots/11.png"><img src="tahap%201/screenshots/11.png" width="250"><br><b>Gambar 11</b></a><br></td>
     <td align="center" valign="top"><a href="tahap%201/screenshots/12.png"><img src="tahap%201/screenshots/12.png" width="250"><br><b>Gambar 12</b></a><br></td>
   </tr>
-  <tr>
-    <td align="center" valign="top"><a href="tahap%201/screenshots/13.png"><img src="tahap%201/screenshots/13.png" width="250"><br><b>Gambar 13</b></a><br></td>
-    <td align="center" valign="top"><a href="tahap%201/screenshots/14.png"><img src="tahap%201/screenshots/14.png" width="250"><br><b>Gambar 14</b></a><br></td>
-    <td></td>
-  </tr>
 </table>
 
 </details>
